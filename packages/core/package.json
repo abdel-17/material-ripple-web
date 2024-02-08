@@ -1,0 +1,39 @@
+{
+	"name": "@material-ripple/core",
+	"description": "JS library for adding ripple effects to the web",
+	"version": "0.1.0",
+	"scripts": {
+		"build": "rm -rf ./dist/* && tsc && cp ./src/ripple.css ./dist/ripple.css",
+		"format": "prettier --write . --ignore-path ../../.prettierignore",
+		"prepublishOnly": "pnpm build"
+	},
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./ripple.css": {
+			"import": "./dist/ripple.css"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"author": "abdel-17",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/abdel-17/material-ripple.git",
+		"directory": "packages/core"
+	},
+	"keywords": [
+		"material design",
+		"ripple",
+		"web"
+	],
+	"devDependencies": {
+		"prettier": "^3.1.0",
+		"typescript": "^5.3.2"
+	}
+}

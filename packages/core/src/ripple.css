@@ -1,0 +1,55 @@
+.ripple {
+	border-radius: inherit;
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	pointer-events: none;
+	isolation: isolate; /* Fix ripple overflow on iOS Safari */
+	-webkit-tap-highlight-color: transparent;
+
+	--hover-color: var(--ripple-hover-color, currentColor);
+	--hover-opacity: var(--ripple-hover-opacity, 0.08);
+	--pressed-color: var(--ripple-pressed-color, currentColor);
+	--pressed-opacity: var(--ripple-pressed-opacity, 0.12);
+}
+
+.ripple::before,
+.ripple::after {
+	content: "";
+	opacity: 0;
+	position: absolute;
+}
+
+.ripple::before {
+	background-color: var(--hover-color);
+	inset: 0;
+	transition:
+		opacity 15ms linear,
+		background-color 15ms linear;
+}
+
+.ripple::after {
+	transition: opacity 375ms linear;
+	background: radial-gradient(
+		closest-side,
+		var(--pressed-color) max(100% - 70px, 65%),
+		transparent 100%
+	);
+	transform-origin: center center;
+}
+
+.ripple[data-hovered]::before {
+	background-color: var(--hover-color);
+	opacity: var(--hover-opacity);
+}
+
+.ripple[data-pressed]::after {
+	opacity: var(--pressed-opacity);
+	transition-duration: 105ms;
+}
+
+@media (forced-colors: active) {
+	.ripple {
+		display: none;
+	}
+}
