@@ -24,8 +24,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/abdel-17/material-ripple.git",
-		"directory": "packages/core"
+		"url": "https://github.com/abdel-17/material-ripple.git"
 	},
 	"keywords": [
 		"material design",
