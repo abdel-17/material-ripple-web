@@ -4,7 +4,7 @@
 	"version": "0.1.0",
 	"scripts": {
 		"build": "rm -rf ./dist/* && tsc && cp ./src/ripple.css ./dist/ripple.css",
-		"format": "prettier --write . --ignore-path ../../.prettierignore",
+		"format": "prettier --write .",
 		"prepublishOnly": "pnpm build"
 	},
 	"type": "module",
