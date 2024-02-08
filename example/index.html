@@ -7,15 +7,18 @@
 		<link rel="stylesheet" href="index.css" />
 	</head>
 	<body>
-		<div>
-			<button class="btn" style="position: relative">
+		<h1>Material Ripple</h1>
+
+		<div class="flex items-center">
+			<button class="relative btn">
 				<div id="ripple"></div>
 				<span>Click me</span>
 			</button>
+
+			<label for="toggle" class="ml-2 mr-0.25">Disabled</label>
+			<input type="checkbox" id="toggle" />
 		</div>
-		<div style="margin-top: 1rem">
-			<button id="toggle">Disable Ripple</button>
-		</div>
+
 		<script type="module">
 			import { Ripple } from "./index.js";
 
@@ -23,11 +26,8 @@
 			const ripple = new Ripple(rippleEl);
 
 			const toggleEl = document.getElementById("toggle");
-			toggleEl.addEventListener("click", () => {
-				ripple.disabled = !ripple.disabled;
-				toggleEl.innerText = ripple.disabled
-					? "Enable Ripple"
-					: "Disable Ripple";
+			toggleEl.addEventListener("change", () => {
+				ripple.disabled = toggleEl.checked;
 			});
 		</script>
 	</body>
