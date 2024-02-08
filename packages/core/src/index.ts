@@ -108,11 +108,11 @@ export class Ripple {
 	}
 
 	get disabled(): boolean {
-		return this.node.getAttribute("disabled") !== null;
+		return this.node.hasAttribute("data-disabled");
 	}
 
 	set disabled(disabled: boolean) {
-		this.node.toggleAttribute("disabled", disabled);
+		this.node.toggleAttribute("data-disabled", disabled);
 	}
 
 	private handlePointerEnter(event: PointerEvent) {
