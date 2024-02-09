@@ -97,17 +97,17 @@ export function Ripple({ disabled }: { disabled?: boolean }) {
 
 ```svelte
 <script lang="ts">
-    import "material-ripple-web/ripple.css";
-    import { Ripple } from "material-ripple-web";
+	import "material-ripple-web/ripple.css";
+	import { Ripple } from "material-ripple-web";
 
-    export let disabled: boolean = false;
+	export let disabled: boolean = false;
 
-    function ripple(node: HTMLElement) {
-        const ripple = new Ripple(node);
-        return {
-            destroy: () => ripple.destroy(),
-        };
-    }
+	function ripple(node: HTMLElement) {
+		const ripple = new Ripple(node);
+		return {
+			destroy: () => ripple.destroy(),
+		};
+	}
 </script>
 
 <div use:ripple data-disabled={disabled ? "" : undefined} />
