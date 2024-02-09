@@ -2,6 +2,10 @@
 
 Material Ripple Web is a library for adding ripple effects to the web. Its implementation is based on the official [<md-ripple>] web component.
 
+<div align="center">
+	<img src="./assets/example.gif" width="300" height="auto">
+</div>
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Theming](#theming)
@@ -50,7 +54,7 @@ You can remove the event listeners by calling the `destroy` method.
 ripple.destroy();
 ```
 
-You can disabled the ripple by setting the `disabled` property to `true`. This adds the `data-disabled` attribute to the ripple element.
+You can also disabled the ripple by setting the `disabled` property to `true`, which adds the `data-disabled` attribute to the ripple element.
 
 ```js
 ripple.disabled = true;
