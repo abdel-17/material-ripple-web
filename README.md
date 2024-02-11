@@ -3,7 +3,7 @@
 Material Ripple Web is a library for adding ripple effects to the web. Its implementation is based on the official [<md-ripple>] web component.
 
 <div align="center">
-	<img src="./assets/example.gif" width="300" height="auto">
+    <img src="./assets/example.gif" width="300" height="auto">
 </div>
 
 - [Installation](#installation)
@@ -28,8 +28,8 @@ Include the stylesheet in the HTML.
 
 ```html
 <link
-	rel="stylesheet"
-	href="./node-modules/material-ripple-web/dist/ripple.css"
+    rel="stylesheet"
+    href="./node-modules/material-ripple-web/dist/ripple.css"
 />
 ```
 
@@ -37,14 +37,14 @@ Place the ripple element in a `position: relative` container and attach the even
 
 ```html
 <button style="position: relative">
-	<div id="ripple"></div>
-	<span>Click me</span>
+    <div id="ripple"></div>
+    <span>Click me</span>
 </button>
 <script type="module">
-	import { Ripple } from "./node-modules/material-ripple-web/dist/index.js";
+    import { Ripple } from "./node-modules/material-ripple-web/dist/index.js";
 
-	const rippleEl = document.getElementById("ripple");
-	const ripple = new Ripple(rippleEl);
+    const rippleEl = document.getElementById("ripple");
+    const ripple = new Ripple(rippleEl);
 </script>
 ```
 
@@ -78,18 +78,18 @@ Ripples support theming using CSS variables.
 ```tsx
 import "material-ripple-web/ripple.css";
 import { Ripple as MaterialRipple } from "material-ripple-web";
-import React from "react";
+import { useEffect, useRef } from "react";
 
 export function Ripple({ disabled }: { disabled?: boolean }) {
-	const ref = React.useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLDivElement>(null);
 
-	React.useEffect(() => {
-		if (!ref.current) return;
-		const ripple = new MaterialRipple(ref.current);
-		return () => ripple.destroy();
-	}, []);
+    useEffect(() => {
+        if (ref.current === null) return;
+        const ripple = new MaterialRipple(ref.current);
+        return () => ripple.destroy();
+    }, []);
 
-	return <div ref={ref} data-disabled={disabled ? "" : undefined} />;
+    return <div ref={ref} data-disabled={disabled ? "" : undefined} />;
 }
 ```
 
@@ -97,17 +97,17 @@ export function Ripple({ disabled }: { disabled?: boolean }) {
 
 ```svelte
 <script lang="ts">
-	import "material-ripple-web/ripple.css";
-	import { Ripple } from "material-ripple-web";
+    import "material-ripple-web/ripple.css";
+    import { Ripple } from "material-ripple-web";
 
-	export let disabled: boolean = false;
+    export let disabled: boolean = false;
 
-	function ripple(node: HTMLElement) {
-		const ripple = new Ripple(node);
-		return {
-			destroy: () => ripple.destroy(),
-		};
-	}
+    function ripple(node: HTMLElement) {
+        const ripple = new Ripple(node);
+        return {
+            destroy: () => ripple.destroy(),
+        };
+    }
 </script>
 
 <div use:ripple data-disabled={disabled ? "" : undefined} />
