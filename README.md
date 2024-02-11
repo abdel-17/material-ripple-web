@@ -1,6 +1,6 @@
 # Material Ripple Web
 
-Material Ripple Web is a library for adding ripple effects to the web. Its implementation is based on the official [<md-ripple>] web component.
+Material Ripple Web is a library for adding ripple effects to the web. Its implementation is based on the official [\<md-ripple\>] web component.
 
 <div align="center">
     <img src="./assets/example.gif" width="300" height="auto">
@@ -113,5 +113,5 @@ export function Ripple({ disabled }: { disabled?: boolean }) {
 <div use:ripple data-disabled={disabled ? "" : undefined} />
 ```
 
-[<md-ripple>]: https://github.com/material-components/material-web/tree/main/ripple
+[\<md-ripple\>]: https://github.com/material-components/material-web/blob/main/docs/components/ripple.md
 [documentation]: https://svelte-material-ripple.vercel.app
