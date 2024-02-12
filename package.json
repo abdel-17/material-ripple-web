@@ -1,7 +1,7 @@
 {
 	"name": "material-ripple-web",
 	"description": "Library for adding ripple effects to the web",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"scripts": {
 		"build": "rm -rf ./dist/* && tsc && cp ./src/ripple.css ./dist/ripple.css",
 		"format": "prettier --write .",
