@@ -5,8 +5,10 @@ export type UseRippleRefParams = {
 	disabled?: boolean;
 };
 
-export function useRippleRef({ disabled = false }: UseRippleRefParams) {
-	const ref = useRef<HTMLDivElement>(null);
+export function useRippleRef<Element extends HTMLElement = HTMLElement>({
+	disabled = false,
+}: UseRippleRefParams) {
+	const ref = useRef<Element>(null);
 	const rippleRef = useRef<Ripple | null>(null);
 
 	useEffect(() => {
