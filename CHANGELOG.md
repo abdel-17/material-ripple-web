@@ -10,3 +10,6 @@ Initial release
 
 # 0.0.4
 - fix: React wrapper types
+
+# 0.0.5
+- fix: Source code not included in the package files, rendering declaration maps useless.
