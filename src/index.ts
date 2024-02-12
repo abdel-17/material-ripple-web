@@ -113,6 +113,18 @@ export class Ripple {
 
 	set disabled(disabled: boolean) {
 		this.node.toggleAttribute("data-disabled", disabled);
+		if (disabled) {
+			this.setHovered(false);
+			this.setPressed(false);
+		}
+	}
+
+	private setHovered(hovered: boolean) {
+		this.node.toggleAttribute("data-hovered", hovered);
+	}
+
+	private setPressed(pressed: boolean) {
+		this.node.toggleAttribute("data-pressed", pressed);
 	}
 
 	private handlePointerEnter(event: PointerEvent) {
@@ -209,14 +221,6 @@ export class Ripple {
 	private handleContextMenu() {
 		this.checkBoundsAfterContextMenu = true;
 		this.endPressAnimation();
-	}
-
-	private setHovered(hovered: boolean) {
-		this.node.toggleAttribute("data-hovered", hovered);
-	}
-
-	private setPressed(pressed: boolean) {
-		this.node.toggleAttribute("data-pressed", pressed);
 	}
 
 	private determineRippleSize() {
@@ -331,7 +335,6 @@ export class Ripple {
 
 	/**
 	 * Returns `true` if
-	 *  - the ripple element is enabled
 	 *  - the pointer is primary for the input type
 	 *  - the pointer is the pointer that started the interaction, or will start
 	 * the interaction
