@@ -1,7 +1,7 @@
 {
 	"name": "material-ripple-web",
 	"description": "Library for adding ripple effects to the web",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"scripts": {
 		"build": "rm -rf ./dist/* && tsc && cp ./src/ripple.css ./dist/ripple.css",
 		"format": "prettier --write .",
@@ -16,15 +16,15 @@
 			"import": "./dist/index.js"
 		},
 		"./react": {
-			"types": "./dist/react/index.d.ts",
-			"import": "./dist/react/index.js"
+			"types": "./dist/react.d.ts",
+			"import": "./dist/react.js"
 		},
 		"./ripple.css": {
 			"import": "./dist/ripple.css"
 		},
 		"./svelte": {
-			"types": "./dist/svelte/index.d.ts",
-			"import": "./dist/svelte/index.js"
+			"types": "./dist/svelte.d.ts",
+			"import": "./dist/svelte.js"
 		}
 	},
 	"files": [
