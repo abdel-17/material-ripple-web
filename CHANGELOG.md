@@ -7,3 +7,6 @@ Initial release
 
 # 0.0.3
 - fix: Package exports for React and Svelte not working.
+
+# 0.0.4
+- fix: React wrapper types
