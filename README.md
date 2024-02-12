@@ -84,7 +84,7 @@ import "material-ripple-web/ripple.css";
 import { useRippleRef } from "material-ripple-web/react";
 
 export function Ripple({ disabled }: { disabled?: boolean }) {
-    const ref = useRippleRef({ disabled });
+    const ref = useRippleRef<HTMLDivElement>({ disabled });
     return <div ref={ref} />;
 }
 ```
