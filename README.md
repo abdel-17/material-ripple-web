@@ -9,7 +9,9 @@ Material Ripple Web is a library for adding ripple effects to the web. Its imple
 - [Installation](#installation)
 - [Usage](#usage)
 - [Theming](#theming)
-- [Examples](#examples)
+- [Framework Wrappers](#framework-wrappers)
+    - [React](#react)
+    - [Svelte](#svelte)
 
 ## Installation
 
@@ -48,13 +50,13 @@ Place the ripple element in a `position: relative` container and attach the even
 </script>
 ```
 
-You can remove the event listeners by calling the `destroy` method.
+You can remove the attached event listeners by calling the `destroy` method.
 
 ```js
 ripple.destroy();
 ```
 
-You can also disabled the ripple by setting the `disabled` property to `true`, which adds the `data-disabled` attribute to the ripple element.
+You can also disabled the ripple by setting the `disabled` property to `true`.
 
 ```js
 ripple.disabled = true;
@@ -71,25 +73,19 @@ Ripples support theming using CSS variables.
 | `--ripple-pressed-color`   | `currentColor` |
 | `--ripple-pressed-opacity` | `0.12`         |
 
-## Examples
+## Framework Wrappers
+
+Wrappers around the core API are available for React and Svelte.
 
 ### React
 
 ```tsx
 import "material-ripple-web/ripple.css";
-import { Ripple as MaterialRipple } from "material-ripple-web";
-import { useEffect, useRef } from "react";
+import { useRippleRef } from "material-ripple-web/react";
 
 export function Ripple({ disabled }: { disabled?: boolean }) {
-    const ref = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (ref.current === null) return;
-        const ripple = new MaterialRipple(ref.current);
-        return () => ripple.destroy();
-    }, []);
-
-    return <div ref={ref} data-disabled={disabled ? "" : undefined} />;
+    const ref = useRippleRef({ disabled });
+    return <div ref={ref} />;
 }
 ```
 
@@ -98,19 +94,12 @@ export function Ripple({ disabled }: { disabled?: boolean }) {
 ```svelte
 <script lang="ts">
     import "material-ripple-web/ripple.css";
-    import { Ripple } from "material-ripple-web";
+    import { ripple } from "material-ripple-web/svelte";
 
     export let disabled: boolean = false;
-
-    function ripple(node: HTMLElement) {
-        const ripple = new Ripple(node);
-        return {
-            destroy: () => ripple.destroy(),
-        };
-    }
 </script>
 
-<div use:ripple data-disabled={disabled ? "" : undefined} />
+<div use:ripple={{ disabled }} />
 ```
 
 [\<md-ripple\>]: https://github.com/material-components/material-web/blob/main/docs/components/ripple.md
