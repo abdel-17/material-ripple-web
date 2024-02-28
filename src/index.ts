@@ -92,7 +92,7 @@ export class Ripple {
 
 	constructor(node: HTMLElement) {
 		const parentNode = node.parentElement;
-		if (!parentNode) {
+		if (parentNode === null) {
 			throw new Error("Ripple element must have a parent");
 		}
 

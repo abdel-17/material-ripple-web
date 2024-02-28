@@ -11,6 +11,7 @@ export const ripple: Action<HTMLElement, RippleActionParams> = (
 ) => {
 	const ripple = new Ripple(node);
 	ripple.disabled = disabled;
+
 	return {
 		update({ disabled = false }) {
 			ripple.disabled = disabled;
