@@ -56,7 +56,7 @@ You can remove the attached event listeners by calling the `destroy` method.
 ripple.destroy();
 ```
 
-You can also disabled the ripple by setting the `disabled` property to `true`.
+You can also disable the ripple by setting the `disabled` property to `true`.
 
 ```js
 ripple.disabled = true;
