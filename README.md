@@ -1,6 +1,6 @@
 # Material Ripple Web
 
-Material Ripple Web is a library for adding ripple effects to the web. Its implementation is based on the official [\<md-ripple\>] web component.
+Material Ripple Web is a framework agnostic library for adding ripple effects to the web. Its implementation is based on the official [\<md-ripple\>] web component.
 
 <div align="center">
     <img src="./assets/example.gif" width="300" height="auto">
@@ -81,25 +81,34 @@ Wrappers around the core API are available for React and Svelte.
 
 ```tsx
 import "material-ripple-web/ripple.css";
-import { useRippleRef } from "material-ripple-web/react";
+import { Ripple } from "material-ripple-web/react";
+import { useState } from "react";
 
-export function Ripple({ disabled }: { disabled?: boolean }) {
-    const ref = useRippleRef<HTMLDivElement>({ disabled });
-    return <div ref={ref} />;
+export function App() {
+    const [disabled, setDisabled] = useState(false);
+    return (
+        <button style="position: relative">
+            <Ripple disabled={disabled} />
+            <span>Click me</span>
+        </button>
+    )
 }
 ```
 
 ### Svelte
 
 ```svelte
-<script lang="ts">
+<script>
     import "material-ripple-web/ripple.css";
     import { ripple } from "material-ripple-web/svelte";
 
-    export let disabled: boolean = false;
+    let disabled = false;
 </script>
 
-<div use:ripple={{ disabled }} />
+<button style="position: relative">
+    <div use:ripple={{ disabled }} />
+    <span>Click me</span>
+</button>
 ```
 
 [\<md-ripple\>]: https://github.com/material-components/material-web/blob/main/docs/components/ripple.md
