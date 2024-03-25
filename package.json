@@ -1,15 +1,16 @@
 {
 	"name": "material-ripple-web",
-	"description": "Library for adding ripple effects to the web",
+	"description": "Material Design ripple effect for the web",
 	"version": "0.1.0",
 	"scripts": {
-		"build": "rm -rf ./dist/* && tsc && cp ./src/ripple.css ./dist/ripple.css",
+		"build": "tsup",
 		"format": "prettier --write .",
+		"typecheck": "tsc",
 		"prepublishOnly": "pnpm build"
 	},
 	"type": "module",
+	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"module": "./dist/index.js",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
@@ -19,16 +20,23 @@
 			"import": "./dist/ripple.css"
 		}
 	},
-	"files": ["dist", "src/**/*.ts"],
+	"files": [
+		"dist"
+	],
 	"author": "abdel-17",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/abdel-17/material-ripple-web.git"
 	},
-	"keywords": ["ripple", "material design", "web"],
+	"keywords": [
+		"ripple",
+		"material design",
+		"web"
+	],
 	"devDependencies": {
 		"prettier": "^3.1.0",
+		"tsup": "^8.0.2",
 		"typescript": "^5.3.2"
 	}
 }
