@@ -15,58 +15,20 @@
 			"types": "./dist/index.d.ts",
 			"import": "./dist/index.js"
 		},
-		"./react": {
-			"types": "./dist/react.d.ts",
-			"import": "./dist/react.js"
-		},
 		"./ripple.css": {
 			"import": "./dist/ripple.css"
-		},
-		"./svelte": {
-			"types": "./dist/svelte.d.ts",
-			"import": "./dist/svelte.js"
 		}
 	},
-	"files": [
-		"dist",
-		"src/**/*.ts"
-	],
+	"files": ["dist", "src/**/*.ts"],
 	"author": "abdel-17",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/abdel-17/material-ripple-web.git"
 	},
-	"keywords": [
-		"material design",
-		"ripple",
-		"web",
-		"react",
-		"svelte"
-	],
-	"peerDependencies": {
-		"react": "^18.0.0",
-		"react-dom": "^18.0.0",
-		"svelte": "^3.0.0 | ^4.0.0"
-	},
-	"peerDependenciesMeta": {
-		"react": {
-			"optional": true
-		},
-		"react-dom": {
-			"optional": true
-		},
-		"svelte": {
-			"optional": true
-		}
-	},
+	"keywords": ["ripple", "material design", "web"],
 	"devDependencies": {
-		"@types/react": "^18.2.55",
-		"@types/react-dom": "^18.2.19",
 		"prettier": "^3.1.0",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"svelte": "^4.2.10",
 		"typescript": "^5.3.2"
 	}
 }

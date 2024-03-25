@@ -48,6 +48,10 @@
 	transition-duration: 105ms;
 }
 
+.ripple[data-disabled] {
+	display: none;
+}
+
 @media (forced-colors: active) {
 	.ripple {
 		display: none;
