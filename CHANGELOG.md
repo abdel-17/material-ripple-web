@@ -22,3 +22,8 @@ Initial release
 # 0.1.0
 
 - breaking: replace `useRipple` hook with `Ripple` component in the React wrapper.
+
+# 0.2.0
+
+- breaking: remove framework wrappers
+- feat: add `target` and `easing` properties to `Ripple`
