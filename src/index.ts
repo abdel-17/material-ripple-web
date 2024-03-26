@@ -148,7 +148,7 @@ export class Ripple {
 	 *
 	 * Passing `null` is equivalent to calling `detach()`.
 	 */
-	attachTo(target: EventTarget | null = this.element.parentElement): void {
+	attach(target: EventTarget | null = this.element.parentElement): void {
 		if (this.#target === target) {
 			return;
 		}
