@@ -20,14 +20,20 @@
 			"import": "./dist/ripple.css"
 		}
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"author": "abdel-17",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/abdel-17/material-ripple-web.git"
 	},
-	"keywords": ["ripple", "material design", "web"],
+	"keywords": [
+		"ripple",
+		"material design",
+		"web"
+	],
 	"devDependencies": {
 		"prettier": "^3.1.0",
 		"tsup": "^8.0.2",
