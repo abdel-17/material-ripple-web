@@ -9,7 +9,7 @@ const SOFT_EDGE_MINIMUM_SIZE = 75;
 const SOFT_EDGE_CONTAINER_RATIO = 0.35;
 const PRESS_PSEUDO = "::after";
 const ANIMATION_FILL = "forwards";
-const EASING_STANDARD = "cubic-bezier(0.2, 0.0, 0, 1.0)";
+const EASING_STANDARD = "cubic-bezier(0.2, 0, 0, 1)";
 
 /**
  * Interaction states for the ripple.
@@ -77,22 +77,6 @@ const EVENTS = [
  */
 const TOUCH_DELAY_MS = 150;
 
-export type RippleProps = {
-	/**
-	 * The element to attach the ripple to.
-	 *
-	 * Defaults to the parent of the ripple element.
-	 */
-	target?: EventTarget | null;
-
-	/**
-	 * The easing function to use for the ripple's animation.
-	 *
-	 * @default "cubic-bezier(0.2, 0.0, 0, 1.0)"
-	 */
-	easing?: string;
-};
-
 export class Ripple {
 	#growAnimation?: Animation;
 	#state: State = "INACTIVE";
@@ -100,28 +84,71 @@ export class Ripple {
 	#checkBoundsAfterContextMenu = false;
 	#target: EventTarget | null = null;
 
-	#node: HTMLElement;
-	easing: string;
+	readonly #element: HTMLElement;
 
-	constructor(node: HTMLElement, props: RippleProps = {}) {
-		const { target = node.parentElement, easing = EASING_STANDARD } = props;
-
-		this.#node = node;
-		this.easing = easing;
-		this.attach(target);
-
-		node.classList.add("ripple");
-		node.ariaHidden = "true";
+	constructor(element: HTMLElement) {
+		this.#element = element;
+		element.classList.add("ripple");
+		element.setAttribute("aria-hidden", "true");
 	}
 
 	/**
-	 * Attaches the ripple to the given target.
+	 * The ripple element.
+	 */
+	get element(): HTMLElement {
+		return this.#element;
+	}
+
+	/**
+	 * The element the ripple is currently attached to.
+	 */
+	get target(): EventTarget | null {
+		return this.#target;
+	}
+
+	/**
+	 * The easing function used for the ripple animation.
+	 *
+	 * @default "cubic-bezier(0.2, 0, 0, 1)"
+	 */
+	get easing(): string {
+		return this.element.getAttribute("data-ripple-easing") ?? EASING_STANDARD;
+	}
+
+	set easing(easing: string) {
+		this.element.setAttribute("data-ripple-easing", easing);
+	}
+
+	/**
+	 * Whether or not the ripple is disabled.
+	 *
+	 * @default false
+	 */
+	get disabled(): boolean {
+		return this.element.hasAttribute("data-disabled");
+	}
+
+	set disabled(disabled: boolean) {
+		this.element.toggleAttribute("data-disabled", disabled);
+	}
+
+	set #hovered(hovered: boolean) {
+		this.element.toggleAttribute("data-hovered", hovered);
+	}
+
+	set #pressed(pressed: boolean) {
+		this.element.toggleAttribute("data-pressed", pressed);
+	}
+
+	/**
+	 * Attaches this ripple to the given target, or
+	 * the parent element if no target is provided.
 	 *
 	 * @param target The target to attach the ripple to.
 	 *
 	 * Passing `null` is equivalent to calling `detach()`.
 	 */
-	attach(target: EventTarget | null) {
+	attachTo(target: EventTarget | null = this.element.parentElement): void {
 		if (this.#target === target) {
 			return;
 		}
@@ -139,9 +166,10 @@ export class Ripple {
 	}
 
 	/**
-	 * Removes the event listeners added from the target.
+	 * Detaches this ripple from the target and
+	 * removes any event listeners added to it.
 	 */
-	detach() {
+	detach(): void {
 		if (this.#target === null) {
 			return;
 		}
@@ -153,24 +181,10 @@ export class Ripple {
 		this.#target = null;
 	}
 
-	get disabled() {
-		return this.#node.hasAttribute("data-disabled");
-	}
-
-	set disabled(disabled: boolean) {
-		this.#node.toggleAttribute("data-disabled", disabled);
-	}
-
-	set #hovered(hovered: boolean) {
-		this.#node.toggleAttribute("data-hovered", hovered);
-	}
-
-	set #pressed(pressed: boolean) {
-		this.#node.toggleAttribute("data-pressed", pressed);
-	}
-
-	/** @private */
-	handleEvent(event: Event) {
+	/** @internal */
+	handleEvent(event: Event): void {
+		// If the ripple is disabled or the user is using forced colors,
+		// the ripple is hidden, so we don't need to handle any events.
 		if (this.disabled || window.matchMedia("(forced-colors: active)").matches) {
 			return;
 		}
@@ -299,7 +313,7 @@ export class Ripple {
 	}
 
 	#determineRippleSize() {
-		const { height, width } = this.#node.getBoundingClientRect();
+		const { height, width } = this.element.getBoundingClientRect();
 
 		const maxDim = Math.max(height, width);
 		const softEdgeSize = Math.max(
@@ -318,7 +332,7 @@ export class Ripple {
 	}
 
 	#getNormalizedPointerEventCoords(pointerEvent: PointerEvent) {
-		const { left, top } = this.#node.getBoundingClientRect();
+		const { left, top } = this.element.getBoundingClientRect();
 		const { scrollX, scrollY } = window;
 		const { pageX, pageY } = pointerEvent;
 
@@ -335,7 +349,7 @@ export class Ripple {
 		positionEvent: Event | undefined,
 		initialSize: number,
 	) {
-		const { height, width } = this.#node.getBoundingClientRect();
+		const { height, width } = this.element.getBoundingClientRect();
 
 		// End in the center
 		const endPoint = {
@@ -369,7 +383,7 @@ export class Ripple {
 			initialSize,
 		);
 
-		this.#growAnimation = this.#node.animate(
+		this.#growAnimation = this.element.animate(
 			{
 				top: [0, 0],
 				left: [0, 0],
@@ -452,7 +466,7 @@ export class Ripple {
 	 * This is only needed for the "stuck" contextmenu longpress on Chrome.
 	 */
 	#inBounds({ x, y }: PointerEvent) {
-		const { top, left, bottom, right } = this.#node.getBoundingClientRect();
+		const { top, left, bottom, right } = this.element.getBoundingClientRect();
 		return left <= x && x <= right && top <= y && y <= bottom;
 	}
 }
