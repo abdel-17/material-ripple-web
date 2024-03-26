@@ -1,6 +1,6 @@
 # Material Ripple Web
 
-Material Ripple Web is a framework agnostic library for adding ripple effects to the web. Its implementation is based on the official [\<md-ripple\>] web component.
+Material Ripple Web is a framework agnostic library for adding ripple effects to the web.
 
 <div align="center">
     <img src="./assets/example.gif" width="300" height="auto">
@@ -9,54 +9,80 @@ Material Ripple Web is a framework agnostic library for adding ripple effects to
 - [Installation](#installation)
 - [Usage](#usage)
 - [Theming](#theming)
-- [Framework Wrappers](#framework-wrappers)
-    - [React](#react)
-    - [Svelte](#svelte)
 
 ## Installation
 
-Install the package from npm using your preferred package manager.
+### npm
 
 ```bash
 npm install material-ripple-web
-pnpm add material-ripple-web
-bun add material-ripple-web
-yarn add material-ripple-web
+```
+
+If you are using a bundler like Webpack or Rollup, you can import the stylesheet directly.
+
+```js
+import "material-ripple-web/ripple.css";
+```
+
+### CDN
+
+Include the following in the `<head>` of your HTML.
+
+```html
+<script
+	type="module"
+	src="https://cdn.jsdelivr.net/npm/material-ripple-web@latest/dist/index.min.js"
+></script>
+
+<link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/material-ripple-web@latest/dist/ripple.min.css"
+/>
 ```
 
 ## Usage
 
-Include the stylesheet in the HTML.
-
-```html
-<link
-    rel="stylesheet"
-    href="./node-modules/material-ripple-web/dist/ripple.css"
-/>
-```
-
-Place the ripple element in a `position: relative` container and attach the event listeners using the `Ripple` class.
+Place the ripple element in a `position: relative` container.
 
 ```html
 <button style="position: relative">
-    <div id="ripple"></div>
-    <span>Click me</span>
+	<div id="ripple"></div>
+	<span>Click me</span>
 </button>
-<script type="module">
-    import { Ripple } from "./node-modules/material-ripple-web/dist/index.js";
-
-    const rippleEl = document.getElementById("ripple");
-    const ripple = new Ripple(rippleEl);
-</script>
 ```
 
-You can remove the attached event listeners by calling the `destroy` method.
+Import `Ripple` and attach it to the ripple element.
 
 ```js
-ripple.destroy();
+import { Ripple } from "material-ripple-web";
+
+const ripple = new Ripple(document.getElementById("ripple"));
+ripple.attach();
 ```
 
-You can also disable the ripple by setting the `disabled` property to `true`.
+You can remove the attached event listeners by calling the `detach` method.
+
+```js
+ripple.detach();
+```
+
+## Options
+
+By default, the ripple listens for events on the parent element. You can
+override this behavior by passing an element to the `attach` method.
+
+```js
+ripple.attach(target);
+```
+
+You can customize the easing function used for the ripple animation
+by setting the `easing` property on the ripple.
+
+```js
+ripple.easing = "ease-in-out";
+```
+
+You can disable the ripple by setting the `disabled` property to `true`.
 
 ```js
 ripple.disabled = true;
@@ -72,44 +98,3 @@ Ripples support theming using CSS variables.
 | `--ripple-hover-opacity`   | `0.08`         |
 | `--ripple-pressed-color`   | `currentColor` |
 | `--ripple-pressed-opacity` | `0.12`         |
-
-## Framework Wrappers
-
-Wrappers around the core API are available for React and Svelte.
-
-### React
-
-```tsx
-import "material-ripple-web/ripple.css";
-import { Ripple } from "material-ripple-web/react";
-import { useState } from "react";
-
-export function App() {
-    const [disabled, setDisabled] = useState(false);
-    return (
-        <button style="position: relative">
-            <Ripple disabled={disabled} />
-            <span>Click me</span>
-        </button>
-    )
-}
-```
-
-### Svelte
-
-```svelte
-<script>
-    import "material-ripple-web/ripple.css";
-    import { ripple } from "material-ripple-web/svelte";
-
-    let disabled = false;
-</script>
-
-<button style="position: relative">
-    <div use:ripple={{ disabled }} />
-    <span>Click me</span>
-</button>
-```
-
-[\<md-ripple\>]: https://github.com/material-components/material-web/blob/main/docs/components/ripple.md
-[documentation]: https://svelte-material-ripple.vercel.app
