@@ -1,7 +1,7 @@
 {
 	"name": "material-ripple-web",
 	"description": "Material Design ripple effect for the web",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"scripts": {
 		"build": "tsup",
 		"format": "prettier --write .",
