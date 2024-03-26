@@ -6,9 +6,9 @@ Material Ripple Web is a framework agnostic library for adding ripple effects to
     <img src="./assets/example.gif" width="300" height="auto">
 </div>
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Theming](#theming)
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [Theming](#theming)
 
 ## Installation
 
@@ -18,26 +18,22 @@ Material Ripple Web is a framework agnostic library for adding ripple effects to
 npm install material-ripple-web
 ```
 
-If you are using a bundler like Webpack or Rollup, you can import the stylesheet directly.
-
 ```js
 import "material-ripple-web/ripple.css";
+import { Ripple } from "material-ripple-web";
 ```
 
 ### CDN
 
-Include the following in the `<head>` of your HTML.
-
 ```html
-<script
-	type="module"
-	src="https://cdn.jsdelivr.net/npm/material-ripple-web@latest/dist/index.min.js"
-></script>
-
 <link
-	rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/material-ripple-web@latest/dist/ripple.min.css"
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/material-ripple-web@latest/dist/ripple.min.css"
 />
+```
+
+```js
+import { Ripple } from "https://cdn.jsdelivr.net/npm/material-ripple-web@latest/dist/index.min.js";
 ```
 
 ## Usage
@@ -46,16 +42,14 @@ Place the ripple element in a `position: relative` container.
 
 ```html
 <button style="position: relative">
-	<div id="ripple"></div>
-	<span>Click me</span>
+    <div id="ripple"></div>
+    <span>Click me</span>
 </button>
 ```
 
 Import `Ripple` and attach it to the ripple element.
 
 ```js
-import { Ripple } from "material-ripple-web";
-
 const ripple = new Ripple(document.getElementById("ripple"));
 ripple.attach();
 ```
