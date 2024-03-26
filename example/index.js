@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		ripple.easing = this.value;
 	});
 
-	document.getElementById("toggle").addEventListener("change", function () {
+	document.getElementById("disabled").addEventListener("change", function () {
 		ripple.disabled = this.checked;
 	});
 });
