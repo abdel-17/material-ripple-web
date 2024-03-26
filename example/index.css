@@ -1,0 +1,41 @@
+@import "../dist/ripple.css";
+
+body {
+	font-family: system-ui, sans-serif;
+	max-width: 480px;
+	margin: 0 auto;
+	padding: 24px;
+	background-color: white;
+	color: black;
+}
+
+.btn {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+	appearance: none;
+	height: 40px;
+	width: 80px;
+	padding: 0 24px;
+	border-radius: 9999px;
+	border: 1px solid black;
+	background-color: transparent;
+	font-size: 1rem;
+	font-weight: 500;
+}
+
+.controls {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 24px;
+	height: 40px;
+}
+
+.control {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}

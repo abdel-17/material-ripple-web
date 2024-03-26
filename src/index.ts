@@ -141,7 +141,7 @@ export class Ripple {
 	}
 
 	/**
-	 * Attaches this ripple to the given target, or
+	 * Attaches this ripple to the given target, or to
 	 * the parent element if no target is provided.
 	 *
 	 * @param target The target to attach the ripple to.
