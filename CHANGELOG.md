@@ -27,3 +27,11 @@ Initial release
 
 - breaking: remove framework wrappers
 - feat: add `target` and `easing` properties to `Ripple`
+
+# 0.2.1
+
+- update README
+
+# 0.2.2
+
+- fix README installation from CDN guide
