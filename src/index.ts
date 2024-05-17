@@ -9,7 +9,6 @@ const SOFT_EDGE_MINIMUM_SIZE = 75;
 const SOFT_EDGE_CONTAINER_RATIO = 0.35;
 const PRESS_PSEUDO = "::after";
 const ANIMATION_FILL = "forwards";
-const EASING_STANDARD = "cubic-bezier(0.2, 0, 0, 1)";
 
 /**
  * Interaction states for the ripple.
@@ -77,7 +76,31 @@ const EVENTS = [
  */
 const TOUCH_DELAY_MS = 150;
 
+export type RippleProps = {
+	/**
+	 * The easing function used for the ripple animation.
+	 *
+	 * @default "cubic-bezier(0.2, 0, 0, 1)"
+	 */
+	easing?: string;
+
+	/**
+	 * Whether or not the ripple is disabled.
+	 *
+	 * @default false
+	 */
+	disabled?: boolean;
+
+	/**
+	 * Attaches this ripple to the given target, or to
+	 * the parent element if no target is provided.
+	 */
+	target?: EventTarget | null;
+};
+
 export class Ripple {
+	static readonly defaultEasing = "cubic-bezier(0.2, 0, 0, 1)";
+
 	#growAnimation?: Animation;
 	#state: State = "INACTIVE";
 	#rippleStartEvent?: PointerEvent;
@@ -86,10 +109,15 @@ export class Ripple {
 
 	readonly #element: HTMLElement;
 
-	constructor(element: HTMLElement) {
+	constructor(element: HTMLElement, props: RippleProps = {}) {
 		this.#element = element;
 		element.classList.add("ripple");
 		element.setAttribute("aria-hidden", "true");
+
+		const { easing = Ripple.defaultEasing, disabled = false, target } = props;
+		this.easing = easing;
+		this.disabled = disabled;
+		this.attach(target);
 	}
 
 	/**
@@ -112,7 +140,9 @@ export class Ripple {
 	 * @default "cubic-bezier(0.2, 0, 0, 1)"
 	 */
 	get easing(): string {
-		return this.element.getAttribute("data-ripple-easing") ?? EASING_STANDARD;
+		return (
+			this.element.getAttribute("data-ripple-easing") ?? Ripple.defaultEasing
+		);
 	}
 
 	set easing(easing: string) {
