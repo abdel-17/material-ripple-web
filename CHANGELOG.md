@@ -35,3 +35,9 @@ Initial release
 # 0.2.2
 
 - fix README installation from CDN guide
+
+# 0.3.0
+
+- feat: add `props` parameter to `Ripple`
+- breaking: `Ripple` now automatically attaches to the parent element,
+  or the element specified in the `target` property.
