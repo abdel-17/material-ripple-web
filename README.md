@@ -56,12 +56,10 @@ By default, the ripple listens for events on the parent element.
 You can override this behavior by passing an element to the `target` prop.
 
 ```html
-<button>
+<div style="position: relative">
     <div id="ripple"></div>
-    Click
-</button>
-
-<input id="ripple-target" type="checkbox" />
+    <input id="ripple-target" type="checkbox" />
+</div>
 ```
 
 ```js
