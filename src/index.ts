@@ -85,7 +85,7 @@ export type RippleProps = {
 	easing?: string;
 
 	/**
-	 * Whether or not the ripple is disabled.
+	 * Whether or not the ripple is initially disabled.
 	 *
 	 * @default false
 	 */
@@ -111,6 +111,7 @@ export class Ripple {
 
 	constructor(element: HTMLElement, props: RippleProps = {}) {
 		this.#element = element;
+
 		element.classList.add("ripple");
 		element.setAttribute("aria-hidden", "true");
 
