@@ -50,7 +50,7 @@ ripple.detach();
 
 ## Props
 
-### target?: EventTarget | null
+### `target?: EventTarget | null`
 
 By default, the ripple listens for events on the parent element.
 You can override this behavior by passing an element to the `target` prop.
@@ -74,7 +74,7 @@ You can also manually set the target by calling the `attach` method.
 ripple.attach(document.getElementById("ripple-target"));
 ```
 
-### easing?: string
+### `easing?: string`
 
 The easing function used for the ripple animation.
 By default, this is set to `cubic-bezier(0.2, 0, 0, 1)`.
@@ -91,7 +91,7 @@ You can also manually set the `easing` property.
 ripple.easing = "ease-in-out";
 ```
 
-### disabled?: boolean
+### `disabled?: boolean`
 
 Whether or not the ripple is initially disabled.
 By default, this is set to `false`.
@@ -121,8 +121,10 @@ Ripples support theming using CSS variables.
 | `--ripple-pressed-color`   | `currentColor` |
 | `--ripple-pressed-opacity` | `0.12`         |
 
+Here is an example of how to customize the ripple globally.
+
 ```css
-.ripple {
+:root {
     --ripple-hover-color: red;
     --ripple-hover-opacity: 0.1;
     --ripple-pressed-color: red;
