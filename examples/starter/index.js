@@ -1,4 +1,4 @@
-import { Ripple } from "../../dist/index.js";
+import { Ripple } from "https://cdn.jsdelivr.net/npm/material-ripple-web@latest/dist/index.min.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 	const ripple = new Ripple(document.getElementById("ripple"));
