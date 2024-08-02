@@ -388,7 +388,7 @@ export class Ripple {
 			y: (height - initialSize) / 2,
 		};
 
-		let startPoint;
+		let startPoint: { x: number; y: number };
 		if (positionEvent instanceof PointerEvent) {
 			startPoint = this.#getNormalizedPointerEventCoords(positionEvent);
 		} else {
@@ -440,7 +440,7 @@ export class Ripple {
 
 		const animation = this.#growAnimation;
 
-		let pressAnimationPlayState = Infinity;
+		let pressAnimationPlayState = Number.POSITIVE_INFINITY;
 		if (typeof animation?.currentTime === "number") {
 			pressAnimationPlayState = animation.currentTime;
 		} else if (animation?.currentTime != null) {

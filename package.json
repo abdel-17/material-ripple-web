@@ -4,7 +4,8 @@
 	"version": "0.3.0",
 	"scripts": {
 		"build": "tsup",
-		"format": "prettier --write .",
+		"check": "biome check",
+		"check:fix": "biome check --write",
 		"typecheck": "tsc",
 		"prepublishOnly": "pnpm build"
 	},
@@ -20,22 +21,16 @@
 			"import": "./dist/ripple.css"
 		}
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"author": "abdel-17",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/abdel-17/material-ripple-web.git"
 	},
-	"keywords": [
-		"ripple",
-		"material design",
-		"web"
-	],
+	"keywords": ["ripple", "material design", "web"],
 	"devDependencies": {
-		"prettier": "^3.1.0",
+		"@biomejs/biome": "^1.8.3",
 		"tsup": "^8.0.2",
 		"typescript": "^5.3.2"
 	}
