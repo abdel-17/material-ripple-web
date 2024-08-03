@@ -92,8 +92,13 @@ export type RippleProps = {
 	disabled?: boolean;
 
 	/**
-	 * Attaches this ripple to the given target, or to
-	 * the parent element if no target is provided.
+	 * The element to attach the ripple to.
+	 *
+	 * If this is not provided, the ripple is attached to the
+	 * element with the same id as the "data-target" attribute.
+	 *
+	 * If the "data-target" attribute is not present,
+	 * the ripple is attached to its parent.
 	 */
 	target?: EventTarget | null;
 };
@@ -101,25 +106,13 @@ export type RippleProps = {
 export class Ripple {
 	static readonly defaultEasing = "cubic-bezier(0.2, 0, 0, 1)";
 
-	#growAnimation?: Animation;
-	#state: State = "INACTIVE";
-	#rippleStartEvent?: PointerEvent;
-	#checkBoundsAfterContextMenu = false;
 	#target: EventTarget | null = null;
+	#state: State = "INACTIVE";
+	#growAnimation: Animation | null = null;
+	#rippleStartEvent: PointerEvent | null = null;
+	#checkBoundsAfterContextMenu = false;
 
 	readonly #element: HTMLElement;
-
-	constructor(element: HTMLElement, props: RippleProps = {}) {
-		this.#element = element;
-
-		element.classList.add("ripple");
-		element.setAttribute("aria-hidden", "true");
-
-		const { easing = Ripple.defaultEasing, disabled = false, target } = props;
-		this.easing = easing;
-		this.disabled = disabled;
-		this.attach(target);
-	}
 
 	/**
 	 * The ripple element.
@@ -137,23 +130,17 @@ export class Ripple {
 
 	/**
 	 * The easing function used for the ripple animation.
-	 *
-	 * @default "cubic-bezier(0.2, 0, 0, 1)"
 	 */
 	get easing(): string {
-		return (
-			this.element.getAttribute("data-ripple-easing") ?? Ripple.defaultEasing
-		);
+		return this.element.getAttribute("data-easing") ?? Ripple.defaultEasing;
 	}
 
 	set easing(easing: string) {
-		this.element.setAttribute("data-ripple-easing", easing);
+		this.element.setAttribute("data-easing", easing);
 	}
 
 	/**
 	 * Whether or not the ripple is disabled.
-	 *
-	 * @default false
 	 */
 	get disabled(): boolean {
 		return this.element.hasAttribute("data-disabled");
@@ -171,21 +158,49 @@ export class Ripple {
 		this.element.toggleAttribute("data-pressed", pressed);
 	}
 
-	/**
-	 * Attaches this ripple to the given target, or to
-	 * the parent element if no target is provided.
-	 *
-	 * @param target The target to attach the ripple to.
-	 *
-	 * Passing `null` is equivalent to calling `detach()`.
-	 */
-	attach(target: EventTarget | null = this.element.parentElement): void {
-		if (this.#target === target) {
-			return;
+	constructor(element: HTMLElement, props: RippleProps = {}) {
+		const { easing, disabled, target } = props;
+
+		this.#element = element;
+
+		if (easing !== undefined) {
+			this.easing = easing;
 		}
 
+		if (disabled !== undefined) {
+			this.disabled = disabled;
+		}
+
+		this.attach(target);
+
+		element.classList.add("ripple");
+		element.setAttribute("aria-hidden", "true");
+	}
+
+	/**
+	 * Attaches this ripple to the given target.
+	 *
+	 * @param target The element to attach the ripple to.
+	 *
+	 * If `target` is not provided, the ripple is attached to the
+	 * element with the same id as the "data-target" attribute.
+	 *
+	 * If the "data-target" attribute is not present,
+	 * the ripple is attached to its parent.
+	 */
+	attach(target?: EventTarget | null): void {
+		// Cleanup any previous listeners.
 		this.detach();
-		this.#target = target;
+
+		if (target !== undefined) {
+			this.#target = target;
+		} else if (this.element.hasAttribute("data-target")) {
+			// biome-ignore lint/style/noNonNullAssertion: I checked that the attribute exists
+			const dataTarget = this.element.getAttribute("data-target")!;
+			this.#target = document.getElementById(dataTarget);
+		} else {
+			this.#target = this.element.parentElement;
+		}
 
 		if (this.#target === null) {
 			return;
@@ -197,8 +212,7 @@ export class Ripple {
 	}
 
 	/**
-	 * Detaches this ripple from the target and
-	 * removes any event listeners added to it.
+	 * Removes the event listeners added by this ripple.
 	 */
 	detach(): void {
 		if (this.#target === null) {
@@ -345,7 +359,6 @@ export class Ripple {
 
 	#determineRippleSize() {
 		const { height, width } = this.element.getBoundingClientRect();
-
 		const maxDim = Math.max(height, width);
 		const softEdgeSize = Math.max(
 			SOFT_EDGE_CONTAINER_RATIO * maxDim,
@@ -354,7 +367,6 @@ export class Ripple {
 		const initialSize = Math.floor(maxDim * INITIAL_ORIGIN_SCALE);
 		const hypotenuse = Math.sqrt(width ** 2 + height ** 2);
 		const maxRadius = hypotenuse + PADDING;
-
 		return {
 			initialSize,
 			rippleScale: (maxRadius + softEdgeSize) / initialSize,
@@ -366,18 +378,14 @@ export class Ripple {
 		const { left, top } = this.element.getBoundingClientRect();
 		const { scrollX, scrollY } = window;
 		const { pageX, pageY } = pointerEvent;
-
-		const documentX = scrollX + left;
-		const documentY = scrollY + top;
-
 		return {
-			x: pageX - documentX,
-			y: pageY - documentY,
+			x: pageX - scrollX - left,
+			y: pageY - scrollY - top,
 		};
 	}
 
 	#getTranslationCoordinates(
-		positionEvent: Event | undefined,
+		positionEvent: Event | null | undefined,
 		initialSize: number,
 	) {
 		const { height, width } = this.element.getBoundingClientRect();
@@ -402,7 +410,7 @@ export class Ripple {
 		return { startPoint, endPoint };
 	}
 
-	#startPressAnimation(positionEvent?: Event) {
+	#startPressAnimation(positionEvent?: Event | null) {
 		this.#pressed = true;
 		this.#growAnimation?.cancel();
 
@@ -435,7 +443,7 @@ export class Ripple {
 	}
 
 	#endPressAnimation() {
-		this.#rippleStartEvent = undefined;
+		this.#rippleStartEvent = null;
 		this.#state = "INACTIVE";
 
 		const animation = this.#growAnimation;
@@ -477,7 +485,7 @@ export class Ripple {
 		}
 
 		if (
-			this.#rippleStartEvent !== undefined &&
+			this.#rippleStartEvent !== null &&
 			this.#rippleStartEvent.pointerId !== event.pointerId
 		) {
 			return false;
