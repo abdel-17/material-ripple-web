@@ -90,17 +90,6 @@ export type RippleProps = {
 	 * @default false
 	 */
 	disabled?: boolean;
-
-	/**
-	 * The element to attach the ripple to.
-	 *
-	 * If this is not provided, the ripple is attached to the
-	 * element with the same id as the "data-target" attribute.
-	 *
-	 * If the "data-target" attribute is not present,
-	 * the ripple is attached to its parent.
-	 */
-	target?: EventTarget | null;
 };
 
 export class Ripple {
@@ -159,7 +148,7 @@ export class Ripple {
 	}
 
 	constructor(element: HTMLElement, props: RippleProps = {}) {
-		const { easing, disabled, target } = props;
+		const { easing, disabled } = props;
 
 		this.#element = element;
 
@@ -170,8 +159,6 @@ export class Ripple {
 		if (disabled !== undefined) {
 			this.disabled = disabled;
 		}
-
-		this.attach(target);
 
 		element.classList.add("ripple");
 		element.setAttribute("aria-hidden", "true");
