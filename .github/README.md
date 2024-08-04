@@ -95,6 +95,13 @@ Here is an example of how to customize the ripple globally.
 
 ## Examples
 
+- [Basic](../examples/basic)
+- [Custom Easing (HTML)](../examples/custom-easing-html)
+- [Custom Easing (JS)](../examples/custom-easing-js)
+- [Custom Target (HTML)](../examples/custom-target-html)
+- [Custom Target (JS)](../examples/custom-target-js)
+- [Disabled](../examples/disabled)
+
 To preview the examples, first build the project.
 
 ```sh
