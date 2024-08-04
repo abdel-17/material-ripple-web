@@ -108,3 +108,7 @@ pnpm preview
 ```
 
 Finally, go to http://localhost:8080/examples.
+
+# Documentation
+
+Read the [API documentation](../docs/README.md).
