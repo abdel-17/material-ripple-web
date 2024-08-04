@@ -41,3 +41,7 @@ Initial release
 - feat: add `props` parameter to `Ripple`
 - breaking: `Ripple` now automatically attaches to the parent element,
   or the element specified in the `target` property.
+
+# 0.4.0
+- feat: add ability to specify ripple target in the HTML
+- breaking: remove auto-attach behavior introduced in the previous version

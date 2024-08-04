@@ -1,7 +1,7 @@
 {
 	"name": "material-ripple-web",
 	"description": "Material Design ripple effect for the web",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"scripts": {
 		"build": "tsup",
 		"check": "biome check",
