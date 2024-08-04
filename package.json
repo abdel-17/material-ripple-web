@@ -6,6 +6,7 @@
 		"build": "tsup",
 		"check": "biome check",
 		"check:fix": "biome check --write",
+		"preview": "http-server -c-1",
 		"typecheck": "tsc",
 		"prepublishOnly": "pnpm build"
 	},
@@ -31,6 +32,7 @@
 	"keywords": ["ripple", "material design", "web"],
 	"devDependencies": {
 		"@biomejs/biome": "^1.8.3",
+		"http-server": "^14.1.1",
 		"tsup": "^8.0.2",
 		"typescript": "^5.3.2"
 	}

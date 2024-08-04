@@ -1,10 +1,13 @@
+@import "../../dist/ripple.css";
+
 body {
 	font-family: system-ui, sans-serif;
-	max-width: 480px;
-	margin: 0 auto;
-	padding: 24px;
-	background-color: white;
-	color: black;
+	margin: 24px;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
 }
 
 .btn {
@@ -12,7 +15,6 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: 0 auto;
 	appearance: none;
 	height: 40px;
 	width: 80px;
@@ -22,17 +24,4 @@ body {
 	background-color: transparent;
 	font-size: 1rem;
 	font-weight: 500;
-}
-
-.controls {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-top: 24px;
-}
-
-.control {
-	display: flex;
-	align-items: center;
-	gap: 8px;
 }
